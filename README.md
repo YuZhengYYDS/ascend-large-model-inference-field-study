@@ -56,7 +56,6 @@ This repository accompanies a field study of deploying frontier-scale Mixture-of
 
 ## Repository contents
 
-- [`paper/paper.pdf`](paper/paper.pdf) — compiled paper
 - [`paper/main.tex`](paper/main.tex) — LaTeX source
 - [`paper/references.bib`](paper/references.bib) — bibliography
 - [`docs/`](docs/) — static project page for GitHub Pages
