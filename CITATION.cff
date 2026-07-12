@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use or discuss this work, please cite the technical report."
+type: article
+title: "On the Limitations of Non-GPU AI Accelerators for Large-Model Inference: A Field Study of MoE and Multimodal Serving on Huawei Ascend"
+authors:
+  - family-names: Yu
+    given-names: Zheng
+    email: zheng.yu3@mail.mcgill.ca
+date-released: 2026-07-09
+repository-code: "https://github.com/YuZhengYYDS/ascend-large-model-inference-field-study"
+url: "https://arxiv.org/abs/2607.08215"
+doi: "10.48550/arXiv.2607.08215"
+identifiers:
+  - type: other
+    value: "arXiv:2607.08215"
+    description: "arXiv identifier"
+abstract: "A field study of deploying large Mixture-of-Experts and multimodal inference workloads on a 16-device Huawei Ascend 910 system using CANN and vLLM-Ascend."
+keywords:
+  - AI accelerators
+  - Huawei Ascend
+  - large-model inference
+  - mixture-of-experts
+  - multimodal serving
+  - vLLM
