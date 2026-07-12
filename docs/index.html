@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A field study of large-model inference on Huawei Ascend: MoE, multimodal serving, integration limits, correctness, and scalability.">
+  <meta property="og:title" content="On the Limitations of Non-GPU AI Accelerators">
+  <meta property="og:description" content="A field study of MoE and multimodal serving on Huawei Ascend.">
+  <meta name="theme-color" content="#132b42">
+  <title>On the Limitations of Non-GPU AI Accelerators</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="evidence.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="mark" href="#top" aria-label="Back to top">FIELD STUDY <span>2026</span></a>
+    <nav aria-label="Primary navigation">
+      <a href="#findings">Findings</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#citation">Citation</a>
+      <a class="nav-cta" href="https://arxiv.org/html/2607.08215">Read HTML</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow">SYSTEMS · INFERENCE · FIELD EVIDENCE</div>
+      <h1>On the Limitations of<br><em>Non-GPU AI Accelerators</em></h1>
+      <p class="subtitle">A Field Study of MoE and Multimodal Serving on Huawei Ascend</p>
+      <p class="byline"><strong>Zheng Yu</strong> · The Chinese University of Hong Kong, Shenzhen · July 2026</p>
+      <div class="actions">
+        <a class="button primary" href="https://arxiv.org/html/2607.08215">Read on arXiv <span aria-hidden="true">↗</span></a>
+        <a class="button secondary" href="https://arxiv.org/pdf/2607.08215">Download PDF</a>
+      </div>
+      <p class="status live"><span></span> arXiv:2607.08215 · cs.DC · CC BY 4.0</p>
+    </section>
+
+    <section class="metrics" aria-label="Study summary">
+      <div><strong>16</strong><span>Ascend 910 devices</span></div>
+      <div><strong>12</strong><span>Source-level patches</span></div>
+      <div><strong>8</strong><span>Limitation classes</span></div>
+      <div><strong>≈4</strong><span>Concurrency sweet spot</span></div>
+    </section>
+
+    <section class="abstract section">
+      <div class="section-label">Abstract</div>
+      <div>
+        <p class="lead">What does it actually cost to move frontier-scale inference away from CUDA?</p>
+        <p>We report two production-oriented deployments on a 16-device Huawei Ascend 910 system using CANN and vLLM-Ascend: a W8A8 Mixture-of-Experts judge serving tens of thousands of prompts per evaluated model, and a ~540 GB multimodal medical vision-language model evaluated on MMMU and MMMU-Pro.</p>
+        <p>Reaching a serviceable state required twelve plugin patches, deliberate disabling of throughput features to preserve numerical correctness, and external recovery scaffolding for recurring low-level faults. The result is a concrete, vendor-agnostic reference for teams evaluating alternative accelerators.</p>
+      </div>
+    </section>
+
+    <section id="findings" class="section findings">
+      <div class="section-label">What we found</div>
+      <div>
+        <h2>The portability tax appears at the intersections.</h2>
+        <div class="finding-grid">
+          <article><span>01</span><h3>Coverage gaps compound</h3><p>Multimodal input, MoE routing, sparse attention, and pipeline parallelism interacted outside the plugin’s tested envelope.</p></article>
+          <article><span>02</span><h3>Correctness costs throughput</h3><p>Sequence parallelism and fused MC2 were disabled; eager execution was chosen where graph capture threatened stability.</p></article>
+          <article><span>03</span><h3>Device faults become operations</h3><p>Opaque aicore and vector-core failures required watchdogs, health checks, log scraping, and automatic restart.</p></article>
+          <article><span>04</span><h3>Scaling is non-monotonic</h3><p>Aggregate throughput peaked near four streams, then fell as the waiting queue and failure rate grew.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="workloads">
+      <div class="workload-card dark">
+        <span>WORKLOAD A</span><h2>Value-alignment judge</h2>
+        <p>DeepSeek-V4-Flash W8A8 MoE · ~300 GB</p>
+        <dl><div><dt>Layout</dt><dd>TP 8 × DP 2</dd></div><div><dt>Scale</dt><dd>Tens of thousands of prompts per model</dd></div><div><dt>Stressors</dt><dd>MoE · DSA · MTP · sustained serving</dd></div></dl>
+      </div>
+      <div class="workload-card light">
+        <span>WORKLOAD B</span><h2>Multimodal medical VLM</h2>
+        <p>DeepSeek-V4-Flash-Vision bf16 · ~540 GB</p>
+        <dl><div><dt>Layout</dt><dd>TP 8 × PP 2</dd></div><div><dt>Validation</dt><dd>MMMU · MMMU-Pro</dd></div><div><dt>Stressors</dt><dd>Vision bridge · MoE · pipeline parallelism</dd></div></dl>
+      </div>
+    </section>
+
+    <section id="evidence" class="evidence">
+      <div class="evidence-head"><div class="section-label">Selected evidence</div><h2>Correctness was achievable.<br>Efficiency and reliability were conditional.</h2></div>
+      <figure class="feature-figure"><div class="evidence-visual bars" role="img" aria-label="MMMU-Pro accuracy 48.03 percent and MMMU validation accuracy 57.78 percent"><span style="--value:48.03%"><i>48.03%</i></span><span style="--value:57.78%"><i>57.78%</i></span></div><figcaption><b>01 · End-to-end quality.</b> The forced-direct protocol reaches 48.03% on MMMU-Pro and 57.78% on MMMU validation, confirming numerical correctness end-to-end.</figcaption></figure>
+      <div class="figure-pair">
+        <figure><div class="evidence-visual patch-map" role="img" aria-label="Twelve source-level patches concentrated in worker runtime and model definition"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div><figcaption><b>02 · Integration effort.</b> Twelve startup patches concentrate in the worker runtime and model definition.</figcaption></figure>
+        <figure><div class="evidence-visual curve" role="img" aria-label="Throughput rises to four streams and then falls under oversubscription"><span></span></div><figcaption><b>03 · Scalability ceiling.</b> Throughput peaks around four streams and collapses under oversubscription.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="limits section">
+      <div class="section-label">Eight limitation classes</div>
+      <ol>
+        <li><b>Stack maturity</b><span>Operator and feature coverage gaps</span></li>
+        <li><b>Parallelism</b><span>Fragile interactions across TP, PP, DP, and EP</span></li>
+        <li><b>Kernel stability</b><span>Aicore, vector-core, and MTE faults</span></li>
+        <li><b>Graph compilation</b><span>Experimental capture and eager fallbacks</span></li>
+        <li><b>Advanced features</b><span>Unstable speculative decoding paths</span></li>
+        <li><b>Scalability</b><span>Low concurrency ceiling and slow startup</span></li>
+        <li><b>Observability</b><span>Opaque diagnostics and external recovery</span></li>
+        <li><b>Fragmentation</b><span>Version pinning and portability tax</span></li>
+      </ol>
+    </section>
+
+    <section id="citation" class="citation">
+      <div><div class="section-label">Citation</div><h2>Cite this field study</h2><p><a href="https://doi.org/10.48550/arXiv.2607.08215">doi:10.48550/arXiv.2607.08215</a></p></div>
+      <pre><code>@article{yu2026limitations,
+  title  = {On the Limitations of Non-GPU AI Accelerators for
+            Large-Model Inference: A Field Study of MoE and
+            Multimodal Serving on Huawei Ascend},
+  author = {Yu, Zheng},
+  year   = {2026},
+  month  = jul,
+  eprint = {2607.08215},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.DC},
+  doi = {10.48550/arXiv.2607.08215}
+}</code></pre>
+    </section>
+  </main>
+
+  <footer><p>Research by Zheng Yu · CC BY 4.0</p><div><a href="mailto:zheng.yu3@mail.mcgill.ca">Email</a><a href="https://github.com/YuZhengYYDS/ascend-large-model-inference-field-study">GitHub</a><a href="https://arxiv.org/abs/2607.08215">arXiv</a><a href="https://arxiv.org/pdf/2607.08215">PDF</a></div></footer>
+</body>
+</html>
