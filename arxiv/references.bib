@@ -1,0 +1,275 @@
+% ===========================================================================
+% References for "On the Limitations of Non-GPU AI Accelerators for
+% Large-Model Inference". Verified, well-known works plus vendor documentation.
+% ===========================================================================
+
+% --- Inference serving systems -------------------------------------------
+@inproceedings{vllm,
+  author    = {Kwon, Woosuk and Li, Zhuohan and Zhuang, Siyuan and Sheng, Ying
+               and Zheng, Lianmin and Yu, Cody Hao and Gonzalez, Joseph E.
+               and Zhang, Hao and Stoica, Ion},
+  title     = {Efficient Memory Management for Large Language Model Serving
+               with {PagedAttention}},
+  booktitle = {Proceedings of the 29th Symposium on Operating Systems
+               Principles (SOSP)},
+  year      = {2023},
+  pages     = {611--626},
+  doi       = {10.1145/3600006.3613165},
+}
+
+@inproceedings{orca,
+  author    = {Yu, Gyeong-In and Jeong, Joo Seong and Kim, Geon-Woo
+               and Kim, Soojeong and Chun, Byung-Gon},
+  title     = {{Orca}: A Distributed Serving System for {Transformer}-Based
+               Generative Models},
+  booktitle = {16th USENIX Symposium on Operating Systems Design and
+               Implementation (OSDI 22)},
+  year      = {2022},
+  pages     = {521--538},
+  publisher = {USENIX Association},
+  address   = {Carlsbad, CA},
+}
+
+@inproceedings{flashattention,
+  author    = {Dao, Tri and Fu, Daniel Y. and Ermon, Stefano and Rudra, Atri
+               and R{\'e}, Christopher},
+  title     = {{FlashAttention}: Fast and Memory-Efficient Exact Attention
+               with {IO}-Awareness},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2022},
+}
+
+@inproceedings{flashattention2,
+  author    = {Dao, Tri},
+  title     = {{FlashAttention-2}: Faster Attention with Better Parallelism
+               and Work Partitioning},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2307.08691},
+}
+
+% --- Parallelism ----------------------------------------------------------
+@article{megatron,
+  author  = {Shoeybi, Mohammad and Patwary, Mostofa and Puri, Raul
+             and LeGresley, Patrick and Casper, Jared and Catanzaro, Bryan},
+  title   = {{Megatron-LM}: Training Multi-Billion Parameter Language Models
+             Using Model Parallelism},
+  journal = {arXiv preprint arXiv:1909.08053},
+  year    = {2019},
+}
+
+@inproceedings{gpipe,
+  author    = {Huang, Yanping and Cheng, Youlong and Bapna, Ankur and Firat, Orhan
+               and Chen, Dehao and Chen, Mia Xu and Lee, HyoukJoong
+               and Ngiam, Jiquan and Le, Quoc V. and Wu, Yonghui and Chen, Zhifeng},
+  title     = {{GPipe}: Efficient Training of Giant Neural Networks Using
+               Pipeline Parallelism},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2019},
+}
+
+@inproceedings{gshard,
+  author    = {Lepikhin, Dmitry and Lee, HyoukJoong and Xu, Yuanzhong
+               and Chen, Dehao and Firat, Orhan and Huang, Yanping
+               and Krikun, Maxim and Shazeer, Noam and Chen, Zhifeng},
+  title     = {{GShard}: Scaling Giant Models with Conditional Computation
+               and Automatic Sharding},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021},
+  note      = {arXiv:2006.16668},
+}
+
+% --- Mixture-of-experts ---------------------------------------------------
+@inproceedings{shazeer,
+  author    = {Shazeer, Noam and Mirhoseini, Azalia and Maziarz, Krzysztof
+               and Davis, Andy and Le, Quoc and Hinton, Geoffrey and Dean, Jeff},
+  title     = {Outrageously Large Neural Networks: The Sparsely-Gated
+               Mixture-of-Experts Layer},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2017},
+  note      = {arXiv:1701.06538},
+}
+
+@article{switch,
+  author  = {Fedus, William and Zoph, Barret and Shazeer, Noam},
+  title   = {{Switch Transformers}: Scaling to Trillion Parameter Models
+             with Simple and Efficient Sparsity},
+  journal = {Journal of Machine Learning Research},
+  volume  = {23},
+  number  = {120},
+  pages   = {1--39},
+  year    = {2022},
+}
+
+@article{mixtral,
+  author  = {Jiang, Albert Q. and Sablayrolles, Alexandre and Roux, Antoine
+             and Mensch, Arthur and Savary, Blanche and Bamford, Chris and others},
+  title   = {{Mixtral} of Experts},
+  journal = {arXiv preprint arXiv:2401.04088},
+  year    = {2024},
+}
+
+@article{deepseekv3,
+  author  = {{DeepSeek-AI}},
+  title   = {{DeepSeek-V3} Technical Report},
+  journal = {arXiv preprint arXiv:2412.19437},
+  year    = {2024},
+}
+
+@article{deepseekv2,
+  author  = {{DeepSeek-AI}},
+  title   = {{DeepSeek-V2}: A Strong, Economical, and Efficient
+             Mixture-of-Experts Language Model},
+  journal = {arXiv preprint arXiv:2405.04434},
+  year    = {2024},
+}
+
+% --- Transformer & speculative decoding -----------------------------------
+@inproceedings{transformer,
+  author    = {Vaswani, Ashish and Shazeer, Noam and Parmar, Niki
+               and Uszkoreit, Jakob and Jones, Llion and Gomez, Aidan N.
+               and Kaiser, {\L}ukasz and Polosukhin, Illia},
+  title     = {Attention Is All You Need},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2017},
+}
+
+@inproceedings{speculative,
+  author    = {Leviathan, Yaniv and Kalman, Matan and Matias, Yossi},
+  title     = {Fast Inference from Transformers via Speculative Decoding},
+  booktitle = {Proceedings of the 40th International Conference on Machine
+               Learning (ICML)},
+  year      = {2023},
+  note      = {arXiv:2211.17192},
+}
+
+@article{medusa,
+  author  = {Cai, Tianle and Li, Yuhong and Geng, Zhengyang and Peng, Hongwu
+             and Lee, Jason D. and Chen, Deming and Dao, Tri},
+  title   = {{Medusa}: Simple {LLM} Inference Acceleration Framework with
+             Multiple Decoding Heads},
+  journal = {arXiv preprint arXiv:2401.10774},
+  year    = {2024},
+}
+
+@article{eagle,
+  author  = {Li, Yuhui and Wei, Fangyun and Zhang, Chao and Zhang, Hongyang},
+  title   = {{EAGLE}: Speculative Sampling Requires Rethinking Feature
+             Uncertainty},
+  journal = {arXiv preprint arXiv:2401.15077},
+  year    = {2024},
+}
+
+% --- Quantization ---------------------------------------------------------
+@inproceedings{smoothquant,
+  author    = {Xiao, Guangxuan and Lin, Ji and Seznec, Mickael and Wu, Hao
+               and Demouth, Julien and Han, Song},
+  title     = {{SmoothQuant}: Accurate and Efficient Post-Training
+               Quantization for Large Language Models},
+  booktitle = {Proceedings of the 40th International Conference on Machine
+               Learning (ICML)},
+  year      = {2023},
+  note      = {arXiv:2211.10438},
+}
+
+@inproceedings{gptq,
+  author    = {Frantar, Elias and Ashkboos, Saleh and Hoefler, Torsten
+               and Alistarh, Dan},
+  title     = {{GPTQ}: Accurate Post-Training Quantization for Generative
+               Pre-trained Transformers},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2023},
+  note      = {arXiv:2210.17323},
+}
+
+@inproceedings{awq,
+  author    = {Lin, Ji and Tang, Jiaming and Tang, Haotian and Yang, Shang
+               and Chen, Wei-Ming and Wang, Wei-Chen and Xiao, Guangxuan
+               and Dang, Xingyu and Gan, Chuang and Han, Song},
+  title     = {{AWQ}: Activation-Aware Weight Quantization for {LLM}
+               Compression and Acceleration},
+  booktitle = {Proceedings of Machine Learning and Systems (MLSys)},
+  year      = {2024},
+  note      = {arXiv:2306.00978},
+}
+
+% --- Vision-language ------------------------------------------------------
+@inproceedings{clip,
+  author    = {Radford, Alec and Kim, Jong Wook and Hallacy, Chris
+               and Ramesh, Aditya and Goh, Gabriel and Agarwal, Sandhini
+               and Sastry, Girish and Askell, Amanda and Mishkin, Pamela
+               and Clark, Jack and Krueger, Gretchen and Sutskever, Ilya},
+  title     = {Learning Transferable Visual Models from Natural Language
+               Supervision},
+  booktitle = {Proceedings of the 38th International Conference on Machine
+               Learning (ICML)},
+  year      = {2021},
+  note      = {arXiv:2103.00020},
+}
+
+@inproceedings{llava,
+  author    = {Liu, Haotian and Li, Chunyuan and Wu, Qingyang and Lee, Yong Jae},
+  title     = {Visual Instruction Tuning},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2023},
+  note      = {arXiv:2304.08485},
+}
+
+@article{qwen2vl,
+  author  = {Wang, Peng and Bai, Shuai and Tan, Sinan and Wang, Shijie
+             and Fan, Zhihao and Bai, Jinze and others},
+  title   = {{Qwen2-VL}: Enhancing Vision-Language Model's Perception of the
+             World at Any Resolution},
+  journal = {arXiv preprint arXiv:2409.12191},
+  year    = {2024},
+}
+
+% --- Accelerator architectures & framework --------------------------------
+@inproceedings{davinci,
+  author    = {Liao, Heng and Tu, Jiajin and Xia, Jing and Zhou, Xiping},
+  title     = {{DaVinci}: A Scalable Architecture for Neural Network Computing},
+  booktitle = {IEEE Hot Chips 31 Symposium (HCS)},
+  year      = {2019},
+  publisher = {IEEE},
+}
+
+@inproceedings{ascendhpca,
+  author    = {Liao, Heng and Tu, Jiajin and Xia, Jing and Liu, Hu
+               and Zhou, Xiping and Yuan, Honghui and Hu, Yuxing},
+  title     = {{Ascend}: A Scalable and Unified Architecture for Ubiquitous
+               Deep Neural Network Computing --- Industry Track Paper},
+  booktitle = {2021 IEEE International Symposium on High-Performance Computer
+               Architecture (HPCA)},
+  year      = {2021},
+  pages     = {789--801},
+  doi       = {10.1109/HPCA51647.2021.00071},
+}
+
+@inproceedings{pytorch,
+  author    = {Paszke, Adam and Gross, Sam and Massa, Francisco and Lerer, Adam
+               and Bradbury, James and Chanan, Gregory and Killeen, Trevor
+               and Lin, Zeming and Gimelshein, Natalia and Antiga, Luca and others},
+  title     = {{PyTorch}: An Imperative Style, High-Performance Deep Learning
+               Library},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2019},
+  note      = {arXiv:1912.01703},
+}
+
+% --- Vendor documentation -------------------------------------------------
+@misc{cann,
+  author       = {{Huawei Technologies Co., Ltd.}},
+  title        = {{CANN}: Compute Architecture for Neural Networks ---
+                  Documentation},
+  howpublished = {\url{https://www.hiascend.com/en/software/cann}},
+  year         = {2024},
+  note         = {Accessed 2026},
+}
+
+@misc{vllmascend,
+  author       = {{vLLM Project}},
+  title        = {{vLLM Ascend} Plugin (vllm-ascend) Documentation},
+  howpublished = {\url{https://vllm-ascend.readthedocs.io/}},
+  year         = {2024},
+  note         = {Accessed 2026},
+}
