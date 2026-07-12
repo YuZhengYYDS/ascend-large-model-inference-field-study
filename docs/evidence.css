@@ -1,0 +1,20 @@
+.evidence-visual {
+  min-height: 280px;
+  border-bottom: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(55, 80, 120, .03), rgba(55, 80, 120, .09));
+  position: relative;
+  overflow: hidden;
+}
+
+.bars { display: flex; align-items: flex-end; justify-content: center; gap: 11%; padding: 38px 12% 0; }
+.bars span { height: var(--value); width: 26%; background: linear-gradient(180deg, var(--red), #8a3327); border-radius: 8px 8px 0 0; position: relative; box-shadow: 0 12px 30px rgba(128, 46, 36, .16); }
+.bars i { position: absolute; top: -30px; width: 100%; text-align: center; font-style: normal; font: 700 .8rem/1 var(--sans); color: var(--navy); }
+
+.patch-map { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; padding: 46px; }
+.patch-map span { display: block; border: 1px solid rgba(128, 46, 36, .25); background: linear-gradient(135deg, rgba(128, 46, 36, .8), rgba(179, 94, 71, .42)); border-radius: 7px; box-shadow: 0 9px 18px rgba(55, 37, 28, .08); }
+.patch-map span:nth-child(3n) { opacity: .52; }
+
+.curve::before, .curve::after { content: ""; position: absolute; }
+.curve::before { inset: 42px 40px; border-left: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.curve::after { left: 55px; right: 45px; bottom: 72px; height: 150px; border-top: 8px solid var(--red); border-radius: 55% 45% 16% 10%; transform: skewY(-7deg); filter: drop-shadow(0 8px 7px rgba(128, 46, 36, .2)); }
+.curve span { position: absolute; width: 16px; height: 16px; border-radius: 50%; background: var(--navy); left: 53%; top: 72px; box-shadow: 0 0 0 7px rgba(30, 39, 49, .12); }
